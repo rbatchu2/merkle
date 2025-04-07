@@ -144,11 +144,10 @@ def send_signed_msg(proof, random_leaf):
     })
 
     signed_tx = w3.eth.account.sign_transaction(tx, acct.key)
-    tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
 
     print(f'Transaction sent: {tx_hash.hex()}')
     return tx_hash.hex()
-
 
 # Helper functions that do not need to be modified
 def connect_to(chain):
