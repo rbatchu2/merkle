@@ -4,7 +4,7 @@ import string
 import json
 from pathlib import Path
 from web3 import Web3
-from web3.middleware import ExtraDataToPOAMiddleware 
+from web3.middleware import ExtraDataToPOAMiddleware
 
 from sympy import primerange
 
@@ -40,6 +40,19 @@ def merkle_assignment():
         #  complete this method and run your code with the following line un-commented
         # tx_hash = send_signed_msg(proof, leaves[random_leaf_index])
 
+def is_prime(n):
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+        i += 6
+    return True
 
 def generate_primes(num_primes):
     """
@@ -47,8 +60,11 @@ def generate_primes(num_primes):
         returns list (with length n) of primes (as ints) in ascending order
     """
     primes_list = []
-
-    primes_list = list(primerange(2, 100000))[:num_primes]
+    candidate = 2
+    while len(primes_list) < num_primes:
+        if is_prime(candidate):
+            primes_list.append(candidate)
+        candidate += 1
     return primes_list
 
 
